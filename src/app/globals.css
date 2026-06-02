@@ -1,26 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #06020a;
+  --foreground: #f3f1f6;
+  
+  --color-sensual-dark: #07030c;
+  --color-sensual-deep: #0e0517;
+  --color-sensual-purple: #1f0b33;
+  --color-sensual-pink: #ff2a6d;
+  --color-rose-gold: #c5a880;
+  --color-velvet-crimson: #630c2c;
+  --color-sensual-glow: rgba(255, 42, 109, 0.4);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@theme {
+  --color-sensual-dark: var(--color-sensual-dark);
+  --color-sensual-deep: var(--color-sensual-deep);
+  --color-sensual-purple: var(--color-sensual-purple);
+  --color-sensual-pink: var(--color-sensual-pink);
+  --color-rose-gold: var(--color-rose-gold);
+  --color-velvet-crimson: var(--color-velvet-crimson);
+  
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  --animate-sensual-pulse: sensual-pulse 4s infinite alternate ease-in-out;
+  --animate-neon-glow: neon-glow 3s infinite ease-in-out;
+  --animate-velvet-flow: velvet-flow 12s infinite linear;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @keyframes sensual-pulse {
+    0% {
+      opacity: 0.65;
+      transform: scale(0.98);
+      filter: blur(40px);
+    }
+    100% {
+      opacity: 0.85;
+      transform: scale(1.05);
+      filter: blur(60px);
+    }
+  }
+
+  @keyframes neon-glow {
+    0%, 100% {
+      box-shadow: 0 0 10px rgba(255, 42, 109, 0.15), inset 0 0 5px rgba(255, 42, 109, 0.1);
+      border-color: rgba(255, 42, 109, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(255, 42, 109, 0.35), inset 0 0 10px rgba(255, 42, 109, 0.25);
+      border-color: rgba(255, 42, 109, 0.5);
+    }
+  }
+  
+  @keyframes velvet-flow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 }
 
 body {
-  background: var(--background);
+  background-color: var(--color-sensual-dark);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, .font-serif {
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 0.03em;
+}
+
+/* Custom premium scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-sensual-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-sensual-purple);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-sensual-pink);
+}
+
+/* Glassmorphism utility card base */
+.glass-card {
+  background: rgba(14, 5, 23, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card-rose {
+  background: rgba(31, 11, 51, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(197, 168, 128, 0.15);
+}
+
+/* Sensual gold gradients */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #fcebc2 0%, #c5a880 50%, #9e7f55 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #fcebc2 0%, #c5a880 50%, #9e7f55 100%);
+}
+
+.text-pink-gradient {
+  background: linear-gradient(135deg, #ff2a6d 0%, #a20b37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Mobile-first viewport container */
+.mobile-viewport {
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100vh;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+  position: relative;
+  background-color: var(--color-sensual-dark);
+  border-left: 1px solid rgba(255, 255, 255, 0.03);
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Scratch Card canvas styling */
+.scratch-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 1rem;
+  overflow: hidden;
+  user-select: none;
+}
+
+.scratch-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  z-index: 10;
 }
