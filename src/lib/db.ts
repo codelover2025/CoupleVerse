@@ -80,6 +80,17 @@ export async function getCoupleProfile(): Promise<CoupleProfile | null> {
   return null;
 }
 
+function generateUUID(): string {
+  if (typeof window !== 'undefined' && window.crypto && window.crypto.randomUUID) {
+    return window.crypto.randomUUID();
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
 export async function saveCoupleProfile(
   partner1Name: string,
   partner2Name: string,
@@ -87,7 +98,7 @@ export async function saveCoupleProfile(
   pin?: string
 ): Promise<CoupleProfile> {
   const profile: CoupleProfile = {
-    id: typeof window !== 'undefined' ? localStorage.getItem('pd_couple_id') || Math.random().toString(36).substr(2, 9) : Math.random().toString(36).substr(2, 9),
+    id: typeof window !== 'undefined' ? localStorage.getItem('pd_couple_id') || generateUUID() : generateUUID(),
     partner1Name,
     partner2Name,
     anniversaryDate,

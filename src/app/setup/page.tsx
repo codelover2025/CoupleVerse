@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Lock, Calendar, UserCheck, Link2 } from 'lucide-react';
@@ -22,6 +22,18 @@ export default function SetupPage() {
   
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  // Automatically parse pairing code from QR scan URL query parameter
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+      if (code) {
+        setIsJoining(true);
+        setPairingCode(code);
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
